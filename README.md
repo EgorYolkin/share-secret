@@ -10,6 +10,7 @@
 - Random password generation with `openssl`
 - Prints password to terminal
 - Reveals file in Finder (`open -R`)
+- `share-secret setup` for YAML-based config (user/global)
 
 ## Requirements
 
@@ -29,8 +30,35 @@ Arguments:
 
 Output:
 
-- Encrypted file at current directory
+- Encrypted file
 - Password in terminal output
+
+Default save location:
+
+- Current directory where the command is called
+
+## Setup command
+
+```bash
+share-secret setup --user --output-dir ~/Secrets
+```
+
+Options:
+
+- `--user` write config to user config directory (default)
+- `--global` write config to system config directory (requires `sudo`)
+- `--output-dir <path>` directory for encrypted files (`.` means current directory)
+
+Config file is YAML with extensible structure:
+
+```yaml
+output_dir: "."
+```
+
+Config resolution:
+
+- User config has priority over global config
+- If no config exists, default is current directory
 
 ## Local install
 
