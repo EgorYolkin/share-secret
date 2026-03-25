@@ -1,1 +1,19 @@
+# macOS
 .DS_Store
+
+# Logs
+*.log
+
+# Environment
+.env
+.env.*
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Temporary files
+*.tmp
+*.bak
