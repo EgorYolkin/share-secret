@@ -5,13 +5,13 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 ### Added
-- `share-secret setup` command
-- YAML config support with user/global scope
-- Configurable `output_dir` for encrypted files
+- `share-secret open <file> <password> [output-file]` command for decryption
+- Configurable `encryption_mode` (`zip` or `openssl`) in YAML config
 
 ### Changed
-- Default behavior remains saving into current directory if no config exists
-- README and README.ru updated with setup/config documentation
+- Default encryption mode switched to password-protected `.zip`
+- `share-secret setup` now supports `--encryption-mode`
+- README and README.ru updated for encrypt/decrypt workflow
 
 ## [v1.0.1] - 2026-03-25
 

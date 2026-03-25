@@ -2,45 +2,50 @@
 
 [English](./README.md) | [Русский](./README.ru.md)
 
-`share-secret` encrypts a text into a `.txt` file with a random password, prints the password, and reveals the file in Finder.
+`share-secret` encrypts text with a random password, saves it as a secure file, prints the password, and reveals files in Finder.
 
 ## Features
 
-- One command to create an encrypted `.txt` file
-- Random password generation with `openssl`
-- Prints password to terminal
-- Reveals file in Finder (`open -R`)
-- `share-secret setup` for YAML-based config (user/global)
+- Default encryption to password-protected `.zip`
+- Optional encryption mode via OpenSSL internals (`AES-256-CBC + PBKDF2`)
+- `share-secret open` to decrypt encrypted files
+- `share-secret setup` for YAML config (user/global)
+- Configurable output directory
 
 ## Requirements
 
 - macOS
 - `openssl`
+- `zip` and `unzip` (for default mode)
 
-## Usage
+## Encrypt usage
 
 ```bash
-share-secret "my secret text" "my-secret.txt"
+share-secret "my secret text" "my-secret"
 ```
 
-Arguments:
+Behavior:
 
-- First arg: text to encrypt (required)
-- Second arg: output filename (optional, default: `secret.txt`)
+- By default creates `my-secret.zip`
+- Prints generated password
+- Reveals encrypted file in Finder
 
-Output:
+## Decrypt usage
 
-- Encrypted file
-- Password in terminal output
+```bash
+share-secret open /path/to/my-secret.zip password123
+```
 
-Default save location:
+Optional output file:
 
-- Current directory where the command is called
+```bash
+share-secret open /path/to/my-secret.zip password123 /path/to/decrypted.txt
+```
 
 ## Setup command
 
 ```bash
-share-secret setup --user --output-dir ~/Secrets
+share-secret setup --user --output-dir ~/Secrets --encryption-mode zip
 ```
 
 Options:
@@ -48,17 +53,19 @@ Options:
 - `--user` write config to user config directory (default)
 - `--global` write config to system config directory (requires `sudo`)
 - `--output-dir <path>` directory for encrypted files (`.` means current directory)
+- `--encryption-mode <zip|openssl>` encryption backend (default: `zip`)
 
-Config file is YAML with extensible structure:
+Config file is YAML:
 
 ```yaml
 output_dir: "."
+encryption_mode: "zip"
 ```
 
 Config resolution:
 
 - User config has priority over global config
-- If no config exists, default is current directory
+- If no config exists, defaults are current directory + `zip` mode
 
 ## Local install
 
@@ -73,11 +80,6 @@ From repo root:
 ```bash
 curl -fsSL https://raw.githubusercontent.com/<YOUR_GITHUB_USER>/share-secret/main/scripts/install-from-github.sh | bash
 ```
-
-## Security notes
-
-- Encryption uses `AES-256-CBC` with `PBKDF2` and random salt.
-- Store printed password securely; file cannot be decrypted without it.
 
 ## Contributing
 
