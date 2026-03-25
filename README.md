@@ -1,5 +1,7 @@
 # share-secret
 
+[English](./README.md) | [Русский](./README.ru.md)
+
 `share-secret` encrypts a text into a `.txt` file with a random password, prints the password, and reveals the file in Finder.
 
 ## Features
@@ -38,7 +40,7 @@ From repo root:
 ./scripts/install.sh
 ```
 
-## Quick install from GitHub (after release)
+## Quick install from GitHub
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/<YOUR_GITHUB_USER>/share-secret/main/scripts/install-from-github.sh | bash
@@ -48,3 +50,7 @@ curl -fsSL https://raw.githubusercontent.com/<YOUR_GITHUB_USER>/share-secret/mai
 
 - Encryption uses `AES-256-CBC` with `PBKDF2` and random salt.
 - Store printed password securely; file cannot be decrypted without it.
+
+## Contributing
+
+Please read [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md) before contributing.
